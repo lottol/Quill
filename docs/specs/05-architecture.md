@@ -82,29 +82,26 @@ with page numbers; < 16 ms typing latency and < 100 ms re-layout after edits at 
 
 ## 5. Repo layout
 
+Single app with one `package.json` (no monorepo). Folders, not packages:
+
 ```
-/apps/desktop
-  /src/main            # Electron main-process services
-  /src/preload         # typed contextBridge API
-  /src/renderer
-     /workbench        # explorer, tabs, split, quick open, status bar
-     /editors
-        /document      # TipTap editor, toolbar, pagination, comments, track changes
-        /snowflake
-        /scenes
-        /character
-        /beats
-        /text
-  /src/worker          # docx + search + word count workers
-/packages
-  /docx-model          # OOXML ⇄ Quill doc model (pure TS, heavily tested)
-  /quill-files         # zod schemas + migrations for .quill files and .quill/ metadata
-  /outline-templates   # built-in method templates
-/tests
-  /fixtures/docx
-  /e2e
-/docs/specs
+src/main/            # Electron main process: files, watcher, export, IPC handlers
+src/preload/         # typed contextBridge API
+src/renderer/
+   workbench/        # explorer, tabs, split, quick open, status bar
+   editors/          # document/, snowflake/, scenes/, character/, text/ (beats/ in Phase 2)
+src/shared/          # types + zod schemas for .quill files and .quill/ metadata
+src/docx/            # OOXML ⇄ Quill doc model (pure TS, no Electron imports, heavily tested)
+src/templates/       # built-in outline method templates (JSON)
+tests/
+   fixtures/docx/
+   e2e/
+docs/specs/
+docs/decisions/
 ```
+
+Workers live next to the code they run (e.g. `src/docx/worker.ts`). `src/docx/` has no
+Electron imports so it can be tested in isolation.
 
 ## 6. Reliability rules
 

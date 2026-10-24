@@ -4,9 +4,9 @@ Each phase ends with a usable tool. Estimates are rough, for one developer worki
 
 ## Phase 0 — Foundations & spikes (≈2–3 weeks)
 
-- Monorepo scaffold (Electron + Vite + React + TS), lint/format, Vitest, Playwright, CI.
+- Single-package scaffold (Electron + Vite + React + TS), lint/format, Vitest, Playwright, CI.
 - Typed IPC skeleton, settings store, workbench shell (empty Explorer, tab bar, status bar).
-- `docx-model` package skeleton, fixture corpus, golden-test harness.
+- `src/docx/` skeleton, fixture corpus, golden-test harness.
 - **Pagination spike** (05 §3) → written decision.
 - **DOCX passthrough spike**: prove a file with comments, tracked changes, tables and a text
   box survives import → export unchanged.
